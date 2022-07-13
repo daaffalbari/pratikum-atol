@@ -19,6 +19,7 @@
       include_once('functions.php');
       $db = dbConnect();
       $dicari = $_POST["cari"];
+      echo $dicari;
       if($db->connect_errno == 0){
         $sql = "select idPegawai, concat(NamaDepan, ' ', NamaBelakang)Nama, Jabatan from pegawai where concat(NamaDepan, ' ', NamaBelakang) like '%$dicari%'";
         $res = $db->query($sql);
