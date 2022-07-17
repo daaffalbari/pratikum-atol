@@ -1,48 +1,34 @@
 <?php
-  // session_start();
-  // if(isset($_SESSION['login'])){
-  //   header("Location: index.php");
-  //   exit;
-  // }
-  include_once("functions.php");
+
+  include_once('functions.php');
   $db=dbConnect();
+  if(isset($_POST['signup'])){
 
-  if(isset($_POST['login'])){
-    $email=$_POST['email'];
-    $password=$_POST['password'];
-
-    $res=mysqli_query($db, "SELECT * FROM admin WHERE email='$email'");
-
-    // cek email
-    if(mysqli_num_rows($res) == 1){
-
-      // cek password
-      $row = mysqli_fetch_assoc($res);
-      if(password_verify($password, $row['password'])){
-        // Set Session 
-        $_SESSION["login"] = true;
-        header("Location: index.php");
-        exit;
-      }
+    if(signup($_POST)>0){
+      echo "
+        <script>
+          alert('User baru berhasil ditambahkan!');
+          document.location.href = 'index.php';
+        </script>
+      ";
+    } else {
+      echo mysqli_error($db);
     }
-
-    $error="<div class='alert alert-danger'>
-              <strong>Maaf!</strong> Email atau Password salah.
-            </div>";
   }
+
 ?>
-<!--  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <style type="text/css">
+  <title>Signup</title>
+  <style>
     @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-    .login-page {
+    .signup-page {
       width: 360px;
       padding: 8% 0 0;
       margin: auto;
@@ -104,18 +90,19 @@
     }
 
   </style>
-  <title>Login</title>
 </head>
 <body>
-<div class="login-page">
-  <div class="form">
-    <form class="login-form" action="login.php" method="POST">
-      <input type="text" name="email" placeholder="Email" />
-      <input type="password" name="password" placeholder="Password" />
-      <button type="submit" name="login">login</button>
-      <p class="message">Not registered? <a href="signup.php">Create an account</a></p>
-    </form>
+  <div class="signup-page">
+    <div class="form">
+      <form class="register-form" method="POST" action="">
+        <input type="text" name="name" placeholder="name"/>
+        <input type="email" name="email" placeholder="email address"/>
+        <input type="password" name="password" placeholder="password"/>
+        <input type="password" name="password2" placeholder="Konfirmasi Password">
+        <button type="submit" name="signup">Create</button>
+        <p class="message">Already registered? <a href="index.php">Sign In</a></p>
+      </form>
+    </div>
   </div>
-</div>
 </body>
-</html> -->
+</html>

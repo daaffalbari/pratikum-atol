@@ -21,7 +21,7 @@
       if(password_verify($password, $row['password'])){
         // Set Session 
         $_SESSION["login"] = true;
-        header("Location: index.php");
+        header("Location: dashboard.php");
         exit;
       }
     }
@@ -31,7 +31,7 @@
             </div>";
   }
 ?>
-<!--  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,13 +109,13 @@
 <body>
 <div class="login-page">
   <div class="form">
-    <form class="login-form" action="login.php" method="POST">
-      <input type="text" name="email" placeholder="Email" />
-      <input type="password" name="password" placeholder="Password" />
+    <form class="login-form" action="dashboard.php">
+      <input type="text" name="email" placeholder="Email/Username" />
+      <input type="password" name="password" placeholder="Password"/>
       <button type="submit" name="login">login</button>
       <p class="message">Not registered? <a href="signup.php">Create an account</a></p>
     </form>
   </div>
 </div>
 </body>
-</html> -->
+</html>
