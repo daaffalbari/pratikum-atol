@@ -1,4 +1,8 @@
 <?
+session_start();
+if(!isset($_SESSION["email"])){
+  header("Location: index.php?error=4");
+}
  include('../functions.php');
 ?>
 <!DOCTYPE html>

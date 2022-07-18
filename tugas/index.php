@@ -5,31 +5,6 @@
   //   exit;
   // }
   include_once("functions.php");
-  $db=dbConnect();
-
-  if(isset($_POST['login'])){
-    $email=$_POST['email'];
-    $password=$_POST['password'];
-
-    $res=mysqli_query($db, "SELECT * FROM admin WHERE email='$email'");
-
-    // cek email
-    if(mysqli_num_rows($res) == 1){
-
-      // cek password
-      $row = mysqli_fetch_assoc($res);
-      if(password_verify($password, $row['password'])){
-        // Set Session 
-        $_SESSION["login"] = true;
-        header("Location: dashboard.php");
-        exit;
-      }
-    }
-
-    $error="<div class='alert alert-danger'>
-              <strong>Maaf!</strong> Email atau Password salah.
-            </div>";
-  }
 ?>
 
 <!DOCTYPE html>
@@ -105,13 +80,30 @@
 
   </style>
   <title>Login</title>
+
+<?php
+  if(isset($_GET["error"])){
+    if($_GET["error"] == "1"){
+      showError("email dan password tidak sesuai");
+    } else if($_GET["error"] == "2"){
+      showError("Error database");
+    } else if($_GET["error"] == "3"){
+      showError("Koneksi ke database gagal");
+    } else if($_GET["error"] == "4"){
+      showError("Harus login terlebih dahulu");
+    } else {
+      showError("Error");
+    }
+  }
+?>
+
 </head>
 <body>
 <div class="login-page">
   <div class="form">
-    <form class="login-form" action="dashboard.php">
-      <input type="text" name="email" placeholder="Email/Username" />
-      <input type="password" name="password" placeholder="Password"/>
+    <form class="login-form" action="login.php" method="POST">
+      <input type="email" name="email" placeholder="Email" value="<?php echo ($_SERVER["REMOTE_ADDR"] == "5.189.147.47" ? "admin":"");?>" />
+      <input type="password" name="password" placeholder="Password" value="<?php echo ($_SERVER["REMOTE_ADDR"]=="5.189.147.47" ? "password":"");?> "/>
       <button type="submit" name="login">login</button>
       <p class="message">Not registered? <a href="signup.php">Create an account</a></p>
     </form>

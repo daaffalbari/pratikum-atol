@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION["email"])){
+  header("Location: index.php?error=4");
+}
+include_once('functions.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +18,9 @@
 <body>
 <div class="container my-5">
 	<h4>Selamat Datang!</h4>
+  <div>
+    <a href="./logout.php"><button class="btn btn-danger">Logout</button></a>
+  </div>
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
   <div class="col">
     <div class="card h-100">

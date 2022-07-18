@@ -159,8 +159,8 @@ function signup($data){
       return false;
   }
 
-  // encrypt password
-  $password = password_hash($password, PASSWORD_DEFAULT);
+  //encrypt password
+  // $password = password_hash($password, PASSWORD_DEFAULT);
 
   // cek Email sudah ada atau belum
   $result = $db->query("SELECT email FROM admin WHERE email='$email'");
@@ -183,7 +183,7 @@ function signup($data){
 function navbar(){
   ?>
   <div>
-    <ul class="nav justify-content-center mt-5 py-2 bg-light">
+    <ul class="nav justify-content-center py-2 bg-light">
 
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="../dashboard.php">Dashboard</a>
@@ -197,9 +197,26 @@ function navbar(){
       <li class="nav-item">
         <a class="nav-link" href="../pasien/index.php">Data Pasien</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../logout.php">Logout</a>
     </ul>
   </div>
   <?php
+}
+
+
+function cari($keyword){
+  $db=dbConnect();
+  $sql="SELECT * FROM penjualan WHERE id LIKE '%$keyword%'";
+  $res=$db->query($sql);
+  $data=$res->fetch_all(MYSQLI_ASSOC);
+  $res->free_result();
+  return $data;
+}
+
+
+function showError($error){
+  echo "<div class='alert alert-danger'>$error</div>";
 }
 
 

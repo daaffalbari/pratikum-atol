@@ -1,7 +1,10 @@
 <?php
-
+  session_start();
+  if(!isset($_SESSION["email"])){
+    header("Location: index.php?error=4");
+  }
   include_once('../functions.php');
-  
+
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +36,13 @@
           <input type="text" class="form py-1" name="keyword" size="40" placeholder="Masukan keyword pencarian">
           <button class="btn btn-info" name="cari">Cari Data</button>
         </form>
+
+        <?php
+        if(isset($_POST["cari"])){
+          $dicari=cari($_POST["keyword"]);
+
+        }
+        ?>
 
         <table class="table">
         <thead>
