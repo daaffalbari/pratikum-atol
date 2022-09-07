@@ -102,7 +102,7 @@
 <div class="login-page">
   <div class="form">
     <form class="login-form" action="login.php" method="POST">
-      <input type="email" name="email" placeholder="Email" value="<?php echo ($_SERVER["REMOTE_ADDR"] == "5.189.147.47" ? "admin":"");?>" />
+      <input type="email" name="email" placeholder="Email" value="<?php echo ($_SERVER["REMOTE_ADDR"] == "5.189.147.47" ? "email":"");?>" />
       <input type="password" name="password" placeholder="Password" value="<?php echo ($_SERVER["REMOTE_ADDR"]=="5.189.147.47" ? "password":"");?> "/>
       <button type="submit" name="login">login</button>
       <p class="message">Not registered? <a href="signup.php">Create an account</a></p>
